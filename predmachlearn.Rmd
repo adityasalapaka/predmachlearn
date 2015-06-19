@@ -1,0 +1,50 @@
+# Practical Machine Learning, Course Project
+
+## Background
+
+Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible
+to collect a large amount of data about personal activity relatively 
+inexpensively. These type of devices are part of the quantified self movement – 
+a group of enthusiasts who take measurements about themselves regularly to 
+improve their health, to find patterns in their behavior, or because they are 
+tech geeks. One thing that people regularly do is quantify how much of a 
+particular activity they do, but they rarely quantify how well they do it. In 
+this project, your goal will be to use data from accelerometers on the belt, 
+forearm, arm, and dumbell of 6 participants. They were asked to perform barbell 
+lifts correctly and incorrectly in 5 different ways. More information is 
+available from the website [here](http://groupware.les.inf.puc-rio.br/har]).
+
+## Data
+
+The training data for this project are available [here](https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv).
+
+The test data are available [here](https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv)
+
+The goal of this project is to predict the manner in which the participants did
+the exercise. The `classe` variable in the data set has five factors:
+
+* A = 
+* B = 
+* C =
+* D = 
+* E = 
+
+## Required Libraries
+
+The following libraries are required for this project:
+
+```{r libraries, message=FALSE}
+library(caret)
+library(rpart)
+library(rattle)
+library(randomForest)
+```
+
+## Getting Data
+
+The training and test data sets were downloaded from the links given above. 
+They were saved in the working directory with their default filenames.
+
+A quick overview of both datasets showed that NA values were registered as 
+either `"NA"`, `"#DIV/0!"` or `""`. This argument was used in loading both the
+datasets into the workspace.
