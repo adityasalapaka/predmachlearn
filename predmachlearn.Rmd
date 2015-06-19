@@ -48,3 +48,45 @@ They were saved in the working directory with their default filenames.
 A quick overview of both datasets showed that NA values were registered as 
 either `"NA"`, `"#DIV/0!"` or `""`. This argument was used in loading both the
 datasets into the workspace.
+
+```{r loading}
+testing <- read.csv("pml-testing.csv",  na.strings = c("NA", "#DIV/0!", ""))
+training <- read.csv("pml-training.csv", na.strings = c("NA", "#DIV/0!", ""))
+```
+
+## Cleanup
+
+Checking for the number of variables and rows in both sets:
+
+```{r dim}
+dim(testing)
+dim(training)
+```
+
+Both sets have 160 variables, currently. 
+
+From a glance at the training dataset, we see that the first seven variables
+are unnecessary from a machine learning standpoint. These are eliminated from
+both datasets.
+
+```{r remove 1:7}
+training <- training[-(1:7)]
+testing <- testing[-(1:7)]
+```
+
+Further, there are some variables which contain no data at all, that is, are 
+completely filled with NA values. These are also removed from the datasets.
+
+```{r remove NA variables}
+training <- training[,colSums(is.na(training)) == 0]
+testing <- testing[,colSums(is.na(testing)) == 0]
+```
+
+Now, we need to eliminate the variables which cause nearly zero variance.
+
+```{r zerovar}
+nsv <- nearZeroVar(training, saveMetrics = TRUE)
+sum(nsv$nzv)
+```
+
+We see that no variables provide near zero variance.
