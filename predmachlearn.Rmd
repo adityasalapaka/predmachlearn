@@ -8,26 +8,24 @@ inexpensively. These type of devices are part of the quantified self movement â€
 a group of enthusiasts who take measurements about themselves regularly to 
 improve their health, to find patterns in their behavior, or because they are 
 tech geeks. One thing that people regularly do is quantify how much of a 
-particular activity they do, but they rarely quantify how well they do it. In 
-this project, your goal will be to use data from accelerometers on the belt, 
-forearm, arm, and dumbell of 6 participants. They were asked to perform barbell 
-lifts correctly and incorrectly in 5 different ways. More information is 
-available from the website [here](http://groupware.les.inf.puc-rio.br/har]).
+particular activity they do, but they rarely quantify how well they do it. 
+
+Six young health participants were asked to perform one set of 10 repetitions of
+the Unilateral Dumbbell Biceps Curl in five different fashions:
+
+* Class A: exactly according to the specification
+* Class B: throwing the elbows to the front
+* Class C: lifting the dumbbell only halfway
+* Class D: lowering the dumbbell only halfway
+* Class E: throwing the hips to the front
+
+The aim is to predict the manner in which the participants did the exercise.
 
 ## Data
 
 The training data for this project are available [here](https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv).
 
 The test data are available [here](https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv)
-
-The goal of this project is to predict the manner in which the participants did
-the exercise. The `classe` variable in the data set has five factors:
-
-* A = 
-* B = 
-* C =
-* D = 
-* E = 
 
 ## Required Libraries
 
@@ -122,7 +120,7 @@ fancyRpartPlot(treeFit, main = "Decision Tree",
                sub = "Rpart Decision Tree To Predict Classe")
 ```
 
-Using the model to predict the test subsample:
+Using the model to predict in the test subsample:
 
 ```{r tree predict}
 treePredict <- predict(treeFit, subtesting, type = "class")
@@ -135,3 +133,23 @@ confusionMatrix(treePredict, subtesting$classe)
 ```
 
 We obtain an accuracy of 73.81.
+
+### Random Forest
+
+```{r forest}
+forestFit <- randomForest(classe ~ ., data = subtraining, method = "class")
+```
+
+Using the model to predict in the test subsample:
+
+```{r forest predict}
+forestPredict <- predict(forestFit, subtesting, type = "class")
+```
+
+The accuracy of the prediction is checked using a confusion matrix.
+
+```{r forest confusion matrix}
+confusionMatrix(forestPredict, subtesting$classe)
+```
+
+We obtain an accuracy of 99.51.
