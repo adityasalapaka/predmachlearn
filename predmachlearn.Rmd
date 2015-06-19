@@ -90,3 +90,48 @@ sum(nsv$nzv)
 ```
 
 We see that no variables provide near zero variance.
+
+## Subsampling
+
+The training set available is split into another training and test set, in a 
+70:30 ratio for cross-validation purposes.
+
+A seed of 4200 is set for the sake of reproducibility. 
+
+```{r subsampling}
+set.seed(4200)
+
+inTrain <- createDataPartition(y = training$classe, p = 0.7, list = FALSE)
+subtraining <- training[inTrain,]
+subtesting <- training[-inTrain,]
+```
+
+## Prediction Using Machine Learning Algorithms
+
+### Decision Tree
+
+
+```{r tree}
+treeFit <- rpart(classe ~ ., method = "class", data = subtraining)
+```
+
+This is the decision tree generated.
+
+```{r tree plot}
+fancyRpartPlot(treeFit, main = "Decision Tree", 
+               sub = "Rpart Decision Tree To Predict Classe")
+```
+
+Using the model to predict the test subsample:
+
+```{r tree predict}
+treePredict <- predict(treeFit, subtesting, type = "class")
+```
+
+The accuracy of the prediction is checked using a confusion matrix.
+
+```{r tree confusion matrix}
+confusionMatrix(treePredict, subtesting$classe)
+```
+
+We obtain an accuracy of 73.81.

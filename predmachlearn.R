@@ -29,7 +29,6 @@ inTrain <- createDataPartition(y = training$classe, p = 0.7, list = FALSE)
 subtraining <- training[inTrain,]
 subtesting <- training[-inTrain,]
 
-
 #tree model
 treeFit <- rpart(classe ~ ., method = "class", data = subtraining)
 fancyRpartPlot(treeFit, main = "Decision Tree", 
