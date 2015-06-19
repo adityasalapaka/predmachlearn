@@ -1,6 +1,7 @@
 #libraies
 library(caret)
 library(rpart)
+library(rattle)
 
 #loading
 
@@ -18,6 +19,8 @@ testing <- testing[-(1:7)]
 training <- training[,colSums(is.na(training)) == 0]
 testing <- testing[,colSums(is.na(testing)) == 0]
 
+#nsv <- nearZeroVar(training, saveMetrics = TRUE)
+
 dim(testing)
 dim(training)
 
@@ -28,4 +31,9 @@ subtraining <- training[inTrain,]
 subtesting <- training[-inTrain,]
 
 #tree model
-modFit <- train(classe ~ ., method = "rpart", data = subtraining)
+treeFit <- train(classe ~ ., method = "rpart", data = subtraining)
+fancyRpartPlot(treeFit$finalModel, main = "Decision Tree", 
+               sub = "Rpart Decision Tree To Predict Classe")
+treePredict <- predict(treeFit, newdata = subtesting)
+confusionMatrix(treePredict, subtesting$classe)
+
