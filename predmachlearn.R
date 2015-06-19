@@ -2,6 +2,7 @@
 library(caret)
 library(rpart)
 library(rattle)
+library(randomForest)
 
 #loading
 
@@ -31,9 +32,14 @@ subtraining <- training[inTrain,]
 subtesting <- training[-inTrain,]
 
 #tree model
-treeFit <- train(classe ~ ., method = "rpart", data = subtraining)
-fancyRpartPlot(treeFit$finalModel, main = "Decision Tree", 
+treeFit <- rpart(classe ~ ., method = "class", data = subtraining)
+fancyRpartPlot(treeFit, main = "Decision Tree", 
                sub = "Rpart Decision Tree To Predict Classe")
-treePredict <- predict(treeFit, newdata = subtesting)
+treePredict <- predict(treeFit, subtesting, type = "class")
 confusionMatrix(treePredict, subtesting$classe)
 
+#forest model
+#forestFit <- train(classe ~ ., method = "rf", data = subtraining, prox = TRUE) #why prox?
+forestFit <- randomForest(classe ~ ., data = subtraining, method = "class")
+forestPredict <- predict(forestFit, subtesting, type = "class")
+confusionMatrix(forestPredict, subtesting$classe)
