@@ -28,6 +28,23 @@ the Unilateral Dumbbell Biceps Curl in five different fashions:
 
 The aim is to predict the manner in which the participants did the exercise.
 
+## Overview
+
+### Model Selection
+Since the data is non-linear and interaction of all variables has to be 
+considered, thee Decision Tree and Random Forest Machine Learning algorithms fit
+our requirements. Of course, the Random Forest method will give a better 
+accuracy during prediction, but also takes more time. This project will also 
+conclude the degree to which prediction using Random Forest is superior to
+Decision Tree. 
+
+### Cross-validation and Out-of-sample Error
+
+The training dataset has 19622 observations, and the sheer number of records 
+enable us to subsample the training dataset further into subtraining and 
+subtesting datasets. These sets are used for cross-validation. The errors that
+occur in trees are misclassifcation errors and are estimated using the accuracy.
+
 ## Data
 
 The training data for this project are available [here](https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv).
@@ -160,3 +177,10 @@ confusionMatrix(forestPredict, subtesting$classe)
 ```
 
 We obtain an accuracy of 99.51.
+
+## Conclusion
+
+The Random Forest alogrithm predicts with an accuracy of 99.51, which is much
+more superior than the accuracy of the Decision Tree algorithm, which is 73.81.
+Of course, the accuracy in a larger test set will be lower than this, but will
+still be high enough to guarantee an accurate prediction.
