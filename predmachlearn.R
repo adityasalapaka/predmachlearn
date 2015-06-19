@@ -40,3 +40,17 @@ confusionMatrix(treePredict, subtesting$classe) #73.81
 forestFit <- randomForest(classe ~ ., data = subtraining, method = "class")
 forestPredict <- predict(forestFit, subtesting, type = "class")
 confusionMatrix(forestPredict, subtesting$classe) #99.46
+
+#final prediction
+prediction <- predict(forestFit, testing, type = "class")
+prediction
+
+pml_write_files = function(x){
+        n = length(x)
+        for(i in 1:n){
+                filename = paste0("problem_id_",i,".txt")
+                write.table(x[i],file=filename,quote=FALSE,row.names=FALSE,col.names=FALSE)
+        }
+}
+
+pml_write_files(prediction)

@@ -183,4 +183,28 @@ We obtain an accuracy of 99.51.
 The Random Forest algorithm predicts with an accuracy of 99.51, which is much
 more superior than the accuracy of the Decision Tree algorithm, which is 73.81.
 Of course, the accuracy in a larger test set will be lower than this, but will
-still be high enough to guarantee an accurate prediction.
+still be high enough to guarantee an accurate prediction. In fact, our testing
+dataset has only 20 cases, so this high accuracy should predict correctly.
+
+## Submission
+
+The final prediction on the testing dataset is:
+
+```{r final prediction}
+prediction <- predict(forestFit, testing, type = "class")
+prediction
+```
+
+A function is used to generate the files for submission.
+
+```{r generating files}
+pml_write_files = function(x){
+        n = length(x)
+        for(i in 1:n){
+                filename = paste0("problem_id_",i,".txt")
+                write.table(x[i],file=filename,quote=FALSE,row.names=FALSE,col.names=FALSE)
+        }
+}
+
+pml_write_files(prediction)
+```
