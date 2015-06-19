@@ -1,6 +1,6 @@
 #libraies
 library(caret)
-
+library(rpart)
 
 #loading
 
@@ -15,12 +15,17 @@ dim(training)
 training <- training[-(1:7)]
 testing <- testing[-(1:7)]
 
-training <- training[,colSums(is.na(training)) != 0]
-testing <- testing[,colSums(is.na(testing)) != 0]
+training <- training[,colSums(is.na(training)) == 0]
+testing <- testing[,colSums(is.na(testing)) == 0]
 
 dim(testing)
 dim(training)
 
 #subsampling
-
+set.seed(4200)
 inTrain <- createDataPartition(y = training$classe, p = 0.7, list = FALSE)
+subtraining <- training[inTrain,]
+subtesting <- training[-inTrain,]
+
+#tree model
+modFit <- train(classe ~ ., method = "rpart", data = subtraining)
