@@ -1,3 +1,10 @@
+---
+title: "Practical Machine Learning, Course Project"
+author: "Aditya Salapaka"
+date: "Friday 20 June 2015"
+output: html_document
+---
+
 # Practical Machine Learning, Course Project
 
 ## Background
