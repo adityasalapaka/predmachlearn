@@ -13,7 +13,7 @@ Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible
 to collect a large amount of data about personal activity relatively 
 inexpensively. These type of devices are part of the quantified self movement – 
 a group of enthusiasts who take measurements about themselves regularly to 
-improve their health, to find patterns in their behavior, or because they are 
+improve their health, to find patterns in their behaviour, or because they are 
 tech geeks. One thing that people regularly do is quantify how much of a 
 particular activity they do, but they rarely quantify how well they do it. 
 
@@ -41,9 +41,9 @@ Decision Tree.
 ### Cross-validation and Out-of-sample Error
 
 The training dataset has 19622 observations, and the sheer number of records 
-enable us to subsample the training dataset further into subtraining and 
+enable us to sub-sample the training dataset further into subtraining and 
 subtesting datasets. These sets are used for cross-validation. The errors that
-occur in trees are misclassifcation errors and are estimated using the accuracy.
+occur in trees are misclassification errors and are estimated using the accuracy.
 
 ## Data
 
@@ -65,7 +65,7 @@ library(randomForest)
 ## Getting Data
 
 The training and test data sets were downloaded from the links given above. 
-They were saved in the working directory with their default filenames.
+They were saved in the working directory with their default file names.
 
 A quick overview of both datasets showed that NA values were registered as 
 either `"NA"`, `"#DIV/0!"` or `""`. This argument was used in loading both the
@@ -144,7 +144,7 @@ fancyRpartPlot(treeFit, main = "Decision Tree",
                sub = "Rpart Decision Tree To Predict Classe")
 ```
 
-Using the model to predict in the test subsample:
+Using the model to predict in the test sub-sample:
 
 ```{r tree predict}
 treePredict <- predict(treeFit, subtesting, type = "class")
@@ -164,7 +164,7 @@ We obtain an accuracy of 73.81.
 forestFit <- randomForest(classe ~ ., data = subtraining, method = "class")
 ```
 
-Using the model to predict in the test subsample:
+Using the model to predict in the test sub-sample:
 
 ```{r forest predict}
 forestPredict <- predict(forestFit, subtesting, type = "class")
@@ -180,7 +180,7 @@ We obtain an accuracy of 99.51.
 
 ## Conclusion
 
-The Random Forest alogrithm predicts with an accuracy of 99.51, which is much
+The Random Forest algorithm predicts with an accuracy of 99.51, which is much
 more superior than the accuracy of the Decision Tree algorithm, which is 73.81.
 Of course, the accuracy in a larger test set will be lower than this, but will
 still be high enough to guarantee an accurate prediction.
